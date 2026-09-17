@@ -14,6 +14,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AmenitiesRouteImport } from './routes/amenities'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DiningRouteImport } from './routes/dining'
+import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as LocationRouteImport } from './routes/location'
 import { Route as RoomsRouteImport } from './routes/rooms'
 
@@ -42,6 +43,11 @@ const DiningRoute = DiningRouteImport.update({
   path: '/dining',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LocationRoute = LocationRouteImport.update({
   id: '/location',
   path: '/location',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/amenities': typeof AmenitiesRoute
   '/contact': typeof ContactRoute
   '/dining': typeof DiningRoute
+  '/gallery': typeof GalleryRoute
   '/location': typeof LocationRoute
   '/rooms': typeof RoomsRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/amenities': typeof AmenitiesRoute
   '/contact': typeof ContactRoute
   '/dining': typeof DiningRoute
+  '/gallery': typeof GalleryRoute
   '/location': typeof LocationRoute
   '/rooms': typeof RoomsRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/amenities': typeof AmenitiesRoute
   '/contact': typeof ContactRoute
   '/dining': typeof DiningRoute
+  '/gallery': typeof GalleryRoute
   '/location': typeof LocationRoute
   '/rooms': typeof RoomsRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/amenities'
     | '/contact'
     | '/dining'
+    | '/gallery'
     | '/location'
     | '/rooms'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/amenities'
     | '/contact'
     | '/dining'
+    | '/gallery'
     | '/location'
     | '/rooms'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/amenities'
     | '/contact'
     | '/dining'
+    | '/gallery'
     | '/location'
     | '/rooms'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   AmenitiesRoute: typeof AmenitiesRoute
   ContactRoute: typeof ContactRoute
   DiningRoute: typeof DiningRoute
+  GalleryRoute: typeof GalleryRoute
   LocationRoute: typeof LocationRoute
   RoomsRoute: typeof RoomsRoute
 }
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DiningRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/location': {
       id: '/location'
       path: '/location'
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   AmenitiesRoute: AmenitiesRoute,
   ContactRoute: ContactRoute,
   DiningRoute: DiningRoute,
+  GalleryRoute: GalleryRoute,
   LocationRoute: LocationRoute,
   RoomsRoute: RoomsRoute,
 }
