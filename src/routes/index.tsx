@@ -1,24 +1,19 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, Car, Flower2, Mountain, PawPrint, Star, UtensilsCrossed, Wifi } from "lucide-react";
+import exterior from "@/assets/property-exterior.png";
+import room from "@/assets/mountain-room.png";
+import view from "@/assets/mountain-lounge.png";
+import verandah from "@/assets/gallery-corridor.png";
+import { directionsHref, makeHead, phoneHref, whatsappHref, address } from "@/lib/site";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
+const schema = { "@context":"https://schema.org", "@type":["LodgingBusiness","LocalBusiness"], name:"The District Green", description:"A cozy Himalayan homestay in Kalpa, Himachal Pradesh.", address:{"@type":"PostalAddress",streetAddress:"Vill. Kashmir, Kalpa (15/2)",addressLocality:"Kalpa",addressRegion:"Himachal Pradesh",postalCode:"172107",addressCountry:"IN"},telephone:"+91 89880 90088",priceRange:"Around ₹1,200/night",aggregateRating:{"@type":"AggregateRating",ratingValue:"4.7",bestRating:"5"},amenityFeature:["Free Wi-Fi","Free Parking","Garden","Room Service","Pet Friendly"].map((name)=>({"@type":"LocationFeatureSpecification",name,value:true})) };
+export const Route = createFileRoute("/")({ head:()=>({...makeHead("The District Green Kalpa | Himalayan Homestay","Stay at The District Green Kalpa, a peaceful mountain view homestay with authentic local hospitality in Himachal Pradesh.","/"),scripts:[{type:"application/ld+json",children:JSON.stringify(schema)}]}), component: Home });
+const highlights = [[Mountain,"Mountain views"],[Flower2,"Garden"],[Wifi,"Free Wi-Fi"],[Car,"Free parking"],[UtensilsCrossed,"Room service"],[PawPrint,"Pet friendly"]] as const;
+function Home(){return <>
+<section className="relative min-h-[92svh] overflow-hidden pt-20 text-forest-foreground"><img src={exterior} alt="The District Green homestay illuminated at night in Kalpa" className="absolute inset-0 h-full w-full object-cover"/><div className="absolute inset-0 bg-gradient-to-r from-forest/85 via-forest/40 to-transparent"/><div className="relative mx-auto flex min-h-[calc(92svh-5rem)] max-w-7xl items-end px-5 pb-14 lg:px-10 lg:pb-20"><div className="max-w-4xl reveal"><p className="eyebrow mb-5 text-gold">A cozy Himalayan homestay · Kalpa</p><h1 className="page-title max-w-4xl">The District<br/>Green</h1><p className="mt-6 max-w-xl text-lg leading-8 text-forest-foreground/85">A peaceful Himalayan stay shaped by mountain views, quiet village rhythms and warm local hospitality.</p><div className="mt-8 flex flex-wrap gap-3"><a href={whatsappHref} target="_blank" rel="noreferrer" className="button-primary">Book on WhatsApp<ArrowRight size={16}/></a><a href={phoneHref} className="button-ghost-light">Call now</a><a href={directionsHref} target="_blank" rel="noreferrer" className="button-ghost-light">Get directions</a></div></div></div><div className="absolute bottom-0 right-0 hidden bg-background px-8 py-5 text-foreground lg:block"><span className="flex items-center gap-2 text-sm font-bold"><Star className="fill-gold text-gold" size={17}/>4.7 / 5 guest rating</span></div></section>
+<section className="border-b border-border"><div className="mx-auto grid max-w-7xl grid-cols-2 px-5 py-7 sm:grid-cols-3 lg:grid-cols-6 lg:px-10">{highlights.map(([Icon,label])=><div key={label} className="flex items-center gap-3 border-border px-2 py-3 lg:border-r"><Icon size={19} className="text-primary"/><span className="text-xs font-bold uppercase tracking-[.08em]">{label}</span></div>)}</div></section>
+<section className="px-5 py-24 lg:px-10 lg:py-36"><div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[.82fr_1.18fr]"><div><p className="eyebrow text-primary">At home in the high Himalayas</p><h2 className="section-title mt-5">Slow mornings.<br/><em>Clearer skies.</em></h2><p className="editorial-copy mt-8 max-w-lg">Set in Vill. Kashmir, Kalpa, The District Green offers a calm base for experiencing the landscape and everyday warmth of this remarkable Himalayan village.</p><Link to="/about" className="button-secondary mt-8">Our story<ArrowRight size={16}/></Link></div><div className="relative pb-12 pl-8 sm:pl-20"><img src={view} alt="Panoramic mountain views from The District Green" className="h-[34rem] w-full object-cover image-lift"/><div className="absolute bottom-0 left-0 bg-forest px-7 py-6 text-forest-foreground"><p className="font-display text-3xl">Kalpa, 172107</p><p className="mt-1 text-xs uppercase tracking-[.16em] text-forest-muted">{address}</p></div></div></div></section>
+<section className="bg-muted px-5 py-24 lg:px-10 lg:py-32"><div className="mx-auto max-w-7xl"><div className="flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p className="eyebrow text-primary">Rest well</p><h2 className="section-title mt-4">Rooms with a view</h2></div><p className="max-w-md editorial-copy">Comfortable accommodation, warm interiors and scenic surroundings for a peaceful homestay experience.</p></div><div className="mt-14 grid gap-7 lg:grid-cols-[1.35fr_.65fr]"><div className="overflow-hidden"><img src={room} alt="Comfortable room overlooking the mountains" className="h-[36rem] w-full object-cover image-lift"/></div><div className="flex flex-col justify-between bg-forest p-8 text-forest-foreground lg:p-10"><div><p className="eyebrow text-gold">Stay simply, stay well</p><h3 className="mt-5 font-display text-5xl leading-none">A quiet room above the valley.</h3></div><div><p className="text-sm leading-7 text-forest-muted">Starting around <strong className="text-forest-foreground">₹1,200/night</strong>, depending on season.</p><Link to="/rooms" className="button-ghost-light mt-6">Explore rooms<ArrowRight size={16}/></Link></div></div></div></div></section>
+<section className="grid min-h-[42rem] lg:grid-cols-2"><div className="order-2 flex items-center bg-background px-5 py-20 lg:order-1 lg:px-[10vw]"><div><p className="eyebrow text-primary">Life in Kalpa</p><h2 className="section-title mt-5">Closer to the place.</h2><p className="editorial-copy mt-7 max-w-lg">The village setting invites a gentler pace: mountain air through the windows, changing light across the slopes and a genuine local experience.</p><Link to="/location" className="button-secondary mt-8">Discover the location<ArrowRight size={16}/></Link></div></div><div className="order-1 overflow-hidden lg:order-2"><img src={verandah} alt="Sunlit corridor at The District Green" className="h-full min-h-[30rem] w-full object-cover image-lift"/></div></section>
+<section className="bg-secondary px-5 py-24 text-center lg:py-32"><p className="eyebrow text-primary">Your Himalayan pause awaits</p><h2 className="mx-auto mt-5 max-w-4xl font-display text-5xl leading-[.95] sm:text-7xl">Make Kalpa more than a stop along the way.</h2><p className="mx-auto mt-7 max-w-xl editorial-copy">Share your dates and we’ll help with availability, room rates and booking details.</p><a href={whatsappHref} target="_blank" rel="noreferrer" className="button-primary mt-8">Check availability<ArrowRight size={16}/></a></section>
+</>}
